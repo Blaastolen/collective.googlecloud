@@ -1,0 +1,65 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+     xmlns:monkey="http://namespaces.plone.org/monkey"
+    i18n_domain="collective.googlecloud">
+
+    <include package="collective.monkeypatcher" />
+
+    <monkey:patch
+        description="return url of image hosted on google storage is set"
+        class="plone.namedfile.scaling.ImageScale"
+        original="__init__"
+        replacement=".scaling.patched___init__"
+        />
+
+    <monkey:patch
+        description="return url of image hosted on google storage is set"
+        class="plone.namedfile.scaling.ImageScale"
+        original="index_html"
+        replacement=".scaling.patched_index_html"
+        />
+
+    <monkey:patch
+        description="return url of image hosted on google storage is set"
+        class="plone.namedfile.scaling.ImageScale"
+        original="HEAD"
+        replacement=".scaling.patched_HEAD"
+        />
+
+   <monkey:patch
+        description="return url of image hosted on google storage is set"
+        class="plone.scale.storage.AnnotationStorage"
+        original="scale"
+        replacement=".scaling.patched_scale"
+        />
+   
+   <monkey:patch
+        description="return url of image hosted on google storage is set"
+        class="plone.scale.storage.AnnotationStorage"
+        original="_cleanup"
+        replacement=".scaling.patched__cleanup"
+        />
+
+   <monkey:patch
+        description="return url of image hosted on google storage is set"
+        class="plone.scale.storage.AnnotationStorage"
+        original="clear"
+        replacement=".scaling.patched_clear"
+        />        
+        
+    <subscriber
+        for="plone.dexterity.interfaces.IDexterityItem
+             zope.lifecycleevent.IObjectModifiedEvent"
+        handler=".scaling.object_modified_or_deleted"
+        />
+    
+    <subscriber
+        for="plone.dexterity.interfaces.IDexterityItem
+             zope.lifecycleevent.IObjectRemovedEvent"
+        handler=".scaling.object_modified_or_deleted"
+        />
+
+
+</configure>
