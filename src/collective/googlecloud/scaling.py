@@ -88,6 +88,7 @@ def patched_scale(self, factory=None, **parameters):
             uid = str(uuid4())
             gblob = Blob(uid, BUCKET) #added line
             blob = data.open('r') #added line
+            gblob.content_type = 'image/%s' % format.lower() #added line
             gblob.upload_from_file(blob) #added line
             blob.close() #added line
             gblob.make_public() #added line
