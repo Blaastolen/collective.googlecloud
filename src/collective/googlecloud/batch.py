@@ -50,6 +50,8 @@ def reset_scales(app, args):
                         print "error regenerating scale  %s" % (scale)
         except AttributeError:
             continue
+        except IOError:
+            continue
 
     transaction.commit()
     
