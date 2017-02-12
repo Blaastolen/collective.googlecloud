@@ -20,6 +20,7 @@ var/
 # files
 .installed.cfg
 .mr.developer.cfg
+__pycache__
 lib64
 log.html
 output.xml
