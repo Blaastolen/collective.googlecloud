@@ -33,21 +33,21 @@ def patched___init__(self, context, request, **info):
         name = info['fieldname']
     self.__name__ = u'{0}.{1}'.format(name, extension)
     self.url = u'{0}/@@images/{1}'.format(url, self.__name__)
-    #patched part, rest is oriniganl
+    #patched part, rest is original
     if 'google_url' in info:          #added line
         self.url = info['google_url'] #added line
         self.google_url = self.url    #added line
-    else:                             #parched line
+    else:                             #patched line
         self.google_url = None        #added line
 
 
 def patched_index_html(self):
     """ download the image """
     self.validate_access()
-    if getattr(self, 'google_url', None) is not None: #parched line
-        response = self.request.response #parched line
-        response.redirect(getattr(self, 'google_url'), lock=True) #parched line
-        return '' #parched line
+    if getattr(self, 'google_url', None) is not None: #patched line
+        response = self.request.response #patched line
+        response.redirect(getattr(self, 'google_url'), lock=True) #patched line
+        return '' #patched line
     set_headers(self.data, self.request.response)
     return stream_data(self.data)
 
@@ -57,10 +57,10 @@ def patched_HEAD(self, REQUEST, RESPONSE=None):
     without transfer of the image itself
     """
     self.validate_access()
-    if getattr(self, 'google_url', None) is not None: #parched line
-        response = self.request.response #parched line
-        response.redirect(getattr(self, 'google_url'), lock=True) #parched line
-        return '' #parched line
+    if getattr(self, 'google_url', None) is not None: #patched line
+        response = self.request.response #patched line
+        response.redirect(getattr(self, 'google_url'), lock=True) #patched line
+        return '' #patched line
 
     set_headers(self.data, REQUEST.response)
     return ''
