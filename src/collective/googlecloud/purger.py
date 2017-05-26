@@ -23,7 +23,7 @@ class GooglePurger(object):
         """
         (scheme, host, path, params, query, fragment) = urlparse.urlparse(url)
         subprocess.call(["gcloud", "compute", "url-maps", "invalidate-cdn-cache",
-                         GOOGLE_LOAD_BALANCER, "-path", path, "--host", host, "--async"])
+                         GOOGLE_LOAD_BALANCER, "--path", path, "--host", host, "--async"])
 
         return
 
@@ -33,7 +33,7 @@ class GooglePurger(object):
         """
         (scheme, host, path, params, query, fragment) = urlparse.urlparse(url)
         purge = subprocess.Popen(["gcloud", "compute", "url-maps", "invalidate-cdn-cache",
-                                  GOOGLE_LOAD_BALANCER, "-path", path, "--host", host],
+                                  GOOGLE_LOAD_BALANCER, "--path", path, "--host", host],
                                  stdout=subprocess.PIPE)
         output, err = purge.communicate()
         return "200", output, err
